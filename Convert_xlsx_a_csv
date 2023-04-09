@@ -1,0 +1,25 @@
+import os
+import pandas as pd
+import tkinter as tk
+from tkinter import filedialog
+
+# Crear una ventana de tkinter
+root = tk.Tk()
+
+# Ocultar la ventana
+root.withdraw()
+
+# Pedir al usuario que seleccione el archivo de Excel que desea convertir
+file_path = filedialog.askopenfilename()
+
+# Convertir el archivo de Excel a un DataFrame de pandas
+df = pd.read_excel(file_path)
+
+# Obtener el nombre del archivo sin la extensión
+file_name = os.path.splitext(os.path.basename(file_path))[0]
+
+# Crear el nombre del archivo de salida agregando la extensión ".csv"
+save_path = filedialog.asksaveasfilename(defaultextension='.csv', initialfile=file_name)
+
+# Guardar el DataFrame como un archivo CSV en la ubicación seleccionada
+df.to_csv(save_path, index=None, header=True)
